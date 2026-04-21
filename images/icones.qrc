@@ -1,0 +1,41 @@
+<RCC>
+  <qresource lang="FR" prefix="icontux">
+    <file>about.png</file>
+    <file>aide.png</file>
+    <file>ajouter-dossier.png</file>
+    <file>annuler.png</file>
+    <file>argent.png</file>
+    <file>bdd.png</file>
+    <file>check.png</file>
+    <file>chercher.png</file>
+    <file>cloud.png</file>
+    <file>csv.png</file>
+    <file>diskette.png</file>
+    <file>dossier.png</file>
+    <file>engrenage.png</file>
+    <file>excel.ico</file>
+    <file>exit01.png</file>
+    <file>fichier-json.png</file>
+    <file>github.png</file>
+    <file>graphique.png</file>
+    <file>info.png</file>
+    <file>licence.png</file>
+    <file>multiply.png</file>
+    <file>new_file.png</file>
+    <file>open.png</file>
+    <file>open-folder.png</file>
+    <file>options.png</file>
+    <file>python.png</file>
+    <file>Qt.png</file>
+    <file>rafraîchir.png</file>
+    <file>sauvegarder.png</file>
+    <file>save.jpg</file>
+    <file>save.png</file>
+    <file>save-as-file.png</file>
+    <file>scrapper.png</file>
+    <file>sortie.png</file>
+    <file>supprimer.png</file>
+    <file>Tuxicon.ico</file>
+    <file>valide.png</file>
+  </qresource>
+</RCC>

@@ -1,0 +1,12 @@
+-r requirements.txt
+pytest
+pytest-qt
+black
+flake8
+isort
+mypy
+Nuitka
+PySide6
+Sphinx
+sphinx-rtd-theme
+jupyter
