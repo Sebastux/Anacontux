@@ -11,11 +11,15 @@ import os
 from PySide6.QtWidgets import QApplication
 from datetime import datetime
 
+from ui import utilisateur
 # Import des module perso
 from ui.kick_config.kick_config import KickstartConfig
 
 # Import de la Fenêtre Principale
 from ui.ppale.fen_ppale import FenPpale
+
+# Import de la fenetre utillisateur.
+from ui.utilisateur.fen_user import FenUser
 
 
 def main():
@@ -51,10 +55,16 @@ def main():
     app = QApplication(sys.argv)
 
     fic_log.debug("Création de la fenêtre principale.")
-    principale = FenPpale(kick_fic)
+    # principale = FenPpale(kick_fic)
 
     fic_log.debug("Affichage de la fenêtre principale.")
-    principale.show()
+    # principale.show()
+
+    fic_log.debug("Création de la fenêtre utilisateur.")
+    utilisateur = FenUser(kick_fic)
+
+    fic_log.debug("Affichage de la fenêtre utilisateur.")
+    utilisateur.show()
 
     # On lance la boucle d'événements et on stocke le code de retour
     exit_code = app.exec()
