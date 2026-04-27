@@ -26,6 +26,9 @@
       </item>
       <item row="0" column="1">
        <widget class="QLineEdit" name="edt_rootPasswd">
+        <property name="toolTip">
+         <string>Mot de passe pour le compte root, Doit contenir des majuscules des minuscules et des caractères spéciaux.</string>
+        </property>
         <property name="echoMode">
          <enum>QLineEdit::EchoMode::Password</enum>
         </property>
@@ -33,6 +36,12 @@
       </item>
       <item row="1" column="0">
        <widget class="QCheckBox" name="cbx_desactiveRoot">
+        <property name="acceptDrops">
+         <bool>false</bool>
+        </property>
+        <property name="toolTip">
+         <string>Empêche l'utilisateur de se connecter au compte root en mode graphique ou à l'aide de la commande &quot;su -&quot;.</string>
+        </property>
         <property name="text">
          <string>Désactiver le compte root</string>
         </property>
@@ -56,29 +65,37 @@
     <item>
      <layout class="QFormLayout" name="formLayout_2">
       <item row="0" column="0">
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="lbl_identifiant">
         <property name="text">
-         <string>TextLabel</string>
+         <string>Identifiant du compte : </string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="lineEdit"/>
+       <widget class="QLineEdit" name="edt_identifiant">
+        <property name="toolTip">
+         <string extracomment="Saisissez ici l'identifiant de votre compte. Cet identifiant servira à vous connecter à la machine."/>
+        </property>
+       </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="lbl_etiquette">
         <property name="text">
-         <string>TextLabel</string>
+         <string>Etiquette du compte : </string>
         </property>
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLineEdit" name="lineEdit_2"/>
+       <widget class="QLineEdit" name="lineEdit_2">
+        <property name="toolTip">
+         <string>Saisissez ici le nom complet de l'utilisateur (ex: Jean Dupont) ou une description du compte. Ce champ est utilisé pour l'affichage dans l'interface de connexion.</string>
+        </property>
+       </widget>
       </item>
       <item row="2" column="0">
-       <widget class="QLabel" name="label_3">
+       <widget class="QLabel" name="lbl_passwd">
         <property name="text">
-         <string>TextLabel</string>
+         <string>Mot de passe : </string>
         </property>
        </widget>
       </item>
@@ -86,9 +103,12 @@
        <widget class="QLineEdit" name="lineEdit_3"/>
       </item>
       <item row="3" column="0">
-       <widget class="QCheckBox" name="checkBox">
+       <widget class="QCheckBox" name="cbx_administrateur">
+        <property name="toolTip">
+         <string>Donne les droits sudo au compte utilisateur. Le compte sera ajouté au compte wheel automatiquement.</string>
+        </property>
         <property name="text">
-         <string>CheckBox</string>
+         <string>Administrateur</string>
         </property>
        </widget>
       </item>
@@ -108,30 +128,56 @@
      </spacer>
     </item>
     <item>
+     <widget class="QLabel" name="lbl_SaisieGroupe">
+      <property name="text">
+       <string>Nom du groupe secondaire : </string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="edt_SaisieGroupe"/>
+    </item>
+    <item>
+     <widget class="QLabel" name="lbl_ListeGroupe">
+      <property name="text">
+       <string>Liste des groupe secondaire</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QPlainTextEdit" name="plainTextEdit"/>
+       <widget class="QPlainTextEdit" name="ptedt_ListeGroupe"/>
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="btn_ajouter">
+          <property name="toolTip">
+           <string>Ajouter un groupe à la liste</string>
+          </property>
           <property name="text">
-           <string>PushButton</string>
+           <string>A&amp;jouter</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_2">
+         <widget class="QPushButton" name="btn_supprimer">
+          <property name="toolTip">
+           <string>Supprimer le groupe sélectionner de la liste.</string>
+          </property>
           <property name="text">
-           <string>PushButton</string>
+           <string>&amp;Supprimer</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_3">
+         <widget class="QPushButton" name="btn_vider">
+          <property name="toolTip">
+           <string>Vider la liste des groupes secondaire.</string>
+          </property>
           <property name="text">
-           <string>PushButton</string>
+           <string>&amp;Vider</string>
           </property>
          </widget>
         </item>
@@ -155,16 +201,16 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_4">
+       <widget class="QPushButton" name="btn_ok">
         <property name="text">
-         <string>PushButton</string>
+         <string>&amp;OK</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_5">
+       <widget class="QPushButton" name="btn_annuler">
         <property name="text">
-         <string>PushButton</string>
+         <string>&amp;Annuler</string>
         </property>
        </widget>
       </item>
