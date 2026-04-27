@@ -147,7 +147,7 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QPlainTextEdit" name="ptedt_ListeGroupe"/>
+       <widget class="QTextEdit" name="tedt_ListeGroupe"/>
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout">
