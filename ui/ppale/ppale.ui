@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>839</width>
-    <height>176</height>
+    <height>202</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -58,6 +58,9 @@
           <height>0</height>
          </size>
         </property>
+        <property name="toolTip">
+         <string>Sélectionnez la distribution à installer.</string>
+        </property>
        </widget>
       </item>
       <item row="1" column="1">
@@ -68,6 +71,9 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="toolTip">
+         <string extracomment="Configure la langue du système lors de son fonctionnement.">Sélectionnez la langue du système.</string>
+        </property>
        </widget>
       </item>
       <item row="3" column="1">
@@ -77,6 +83,9 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>Sélectionnez le fuseau horaire dans lequel se trouve la machine.</string>
         </property>
        </widget>
       </item>
@@ -101,6 +110,9 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="toolTip">
+         <string>Sélectionnez le type de clavier à utiliser sur la machine (n'a aucun effet sur une utilisation en SSH).</string>
+        </property>
        </widget>
       </item>
      </layout>
@@ -123,7 +135,7 @@
       <item row="0" column="0">
        <widget class="QPushButton" name="btn_ok">
         <property name="toolTip">
-         <string extracomment="Valider et passer à l'étape suivante."/>
+         <string extracomment="Valider et passer à l'étape suivante.">Valider la configuration choisie et passer à l'étape suivante.</string>
         </property>
         <property name="text">
          <string>&amp;OK</string>
@@ -135,6 +147,9 @@
       </item>
       <item row="0" column="1">
        <widget class="QPushButton" name="btn_annuler">
+        <property name="toolTip">
+         <string>Annuler la saisie et mettre fin à l'exécution du logiciel.</string>
+        </property>
         <property name="text">
          <string>&amp;Annuler</string>
         </property>
