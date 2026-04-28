@@ -86,7 +86,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLineEdit" name="lineEdit_2">
+       <widget class="QLineEdit" name="edt_etiquette">
         <property name="toolTip">
          <string>Saisissez ici le nom complet de l'utilisateur (ex: Jean Dupont) ou une description du compte. Ce champ est utilisé pour l'affichage dans l'interface de connexion.</string>
         </property>
@@ -100,7 +100,7 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QLineEdit" name="lineEdit_3"/>
+       <widget class="QLineEdit" name="edt_UserPasswd"/>
       </item>
       <item row="3" column="0">
        <widget class="QCheckBox" name="cbx_administrateur">
