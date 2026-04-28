@@ -87,23 +87,12 @@ class FenUser(QMainWindow):
             )
             return
 
-        if nom_groupe == "wheel":
+        if nom_groupe in ["wheel", "sudo"]:
             self.ui.cbx_administrateur.setChecked(True)
+            self.active_sudo = True  # <--- On mémorise l'état pour le retour du mode root
             self.ui.edt_SaisieGroupe.clear()
-            QMessageBox.information(
-                self,
-                "Droits d'aministrateur",
-                "Pour donner les droits d'administrateur au compte utilisateur, vous devez cocher la case Administrateur."
-            )
-
-        if nom_groupe == "sudo":
-            self.ui.cbx_administrateur.setChecked(True)
-            self.ui.edt_SaisieGroupe.clear()
-            QMessageBox.information(
-                self,
-                "Droits d'aministrateur",
-                "Le grouppe sudo n'existe pas dans la branche Red Hat. Veuillez cocher la case administraeur pour ajouter le compte au groupe wheel."
-            )
+            # ... message ...
+            return
 
         if nom_groupe == "root":
             self.ui.edt_SaisieGroupe.clear()
