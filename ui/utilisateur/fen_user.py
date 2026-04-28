@@ -14,15 +14,15 @@ from .ui_loader import UiWindow
 class FenUser(QMainWindow):
     def __init__(self, config_shared):
 
+        # Appel du constructeur de la classe mère
+        super().__init__()
+
         # Déclaration de divers variables
         valideIcon = QIcon(":/icontux/valide.png")
         cancelIcon = QIcon(":/icontux/multiply.png")
-        active_sudo = False
+        self.active_sudo = False
 
         self.config = config_shared
-
-        # Appel du constructeur de la classe mère
-        super().__init__()
 
         # Chargement dynamique de la fenêtre
         base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -48,6 +48,8 @@ class FenUser(QMainWindow):
         self.ui.btn_annuler.clicked.connect(self.quitter)
         self.ui.cbx_administrateur.toggled.connect(self.ChangeEtat)
         self.ui.btn_ajouter.clicked.connect(self.ajouter_groupe)
+        self.ui.btn_supprimer.clicked.connect(self.supprimer_groupe)
+        self.ui.btn_vider.clicked.connect(self.vider_liste_groupes)
 
     def desactive_root(self, is_checked) -> None:
         if is_checked:
@@ -66,7 +68,8 @@ class FenUser(QMainWindow):
         self.close()
 
     def ChangeEtat(self, is_checked) -> None:
-        self.active_sudo = is_checked
+        if self.ui.cbx_administrateur.isEnabled():
+            self.active_sudo = is_checked
 
     def ajouter_groupe(self) -> None:
 
@@ -143,8 +146,20 @@ class FenUser(QMainWindow):
         self.ui.tedt_ListeGroupe.append(nom_groupe)
         self.ui.edt_SaisieGroupe.clear()
 
+    def supprimer_groupe(self) -> None:
+        """Supprime la ligne où se trouve le curseur dans le QTextEdit."""
+        cursor = self.ui.tedt_ListeGroupe.textCursor()
+        if not cursor.hasSelection():
+            cursor.select(cursor.LineUnderCursor)
 
+        cursor.removeSelectedText()
+        # Nettoyage des lignes vides potentielles après suppression
+        texte = self.ui.tedt_ListeGroupe.toPlainText()
+        nettoye = "\n".join([l for l in texte.splitlines() if l.strip()])
+        self.ui.tedt_ListeGroupe.setPlainText(nettoye)
 
-
-
-
+    def vider_liste_groupes(self) -> None:
+        if self.ui.tedt_ListeGroupe.toPlainText().strip():
+            rep = QMessageBox.question(self, "Confirmer", "Voulez-vous vider toute la liste ?")
+            if rep == QMessageBox.Yes:
+                self.ui.tedt_ListeGroupe.clear()
