@@ -163,3 +163,20 @@ class FenUser(QMainWindow):
             rep = QMessageBox.question(self, "Confirmer", "Voulez-vous vider toute la liste ?")
             if rep == QMessageBox.Yes:
                 self.ui.tedt_ListeGroupe.clear()
+
+
+    def show_fenuser(self) -> None:
+        self.setup_window()
+        self.show()
+
+    def setup_window(self) -> None:
+        # Ajuste la fenêtre à la taille idéale calculée par les layouts du .ui
+        self.adjustSize()
+
+        # self.setFixedSize(self.sizeHint())
+
+        # Centrage de la fenêtre
+        qr = self.frameGeometry()
+        cp = self.screen().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
