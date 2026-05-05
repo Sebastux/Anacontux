@@ -1,7 +1,6 @@
 setuptools
 wheel
 PySide6
-pykickstart
 typing-extensions
 python-dotenv
 passlib
