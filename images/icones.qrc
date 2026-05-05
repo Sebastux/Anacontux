@@ -37,5 +37,6 @@
     <file>supprimer.png</file>
     <file>Tuxicon.ico</file>
     <file>valide.png</file>
+    <file>balayer.png</file>
   </qresource>
 </RCC>
