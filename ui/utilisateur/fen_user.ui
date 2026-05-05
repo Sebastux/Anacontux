@@ -140,7 +140,7 @@
     <item>
      <widget class="QLabel" name="lbl_ListeGroupe">
       <property name="text">
-       <string>Liste des groupe secondaire</string>
+       <string>Liste des groupes secondaire</string>
       </property>
      </widget>
     </item>
