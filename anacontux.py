@@ -64,7 +64,7 @@ def main():
     utilisateur = FenUser(kick_fic)
 
     fic_log.debug("Affichage de la fenêtre utilisateur.")
-    utilisateur.show()
+    utilisateur.show_fenuser()
 
     # On lance la boucle d'événements et on stocke le code de retour
     exit_code = app.exec()
