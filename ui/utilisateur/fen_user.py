@@ -95,7 +95,19 @@ class FenUser(QMainWindow):
             self.ui.cbx_administrateur.setChecked(True)
             self.active_sudo = True  # <--- On mémorise l'état pour le retour du mode root
             self.ui.edt_SaisieGroupe.clear()
-            # ... message ...
+            if nom_groupe == "wheel":
+                QMessageBox.information(
+                    self, "Information",
+                    "Pour donner les droits administrateur à l'utilisateur, vous \n"
+                    "devez cocher la case administrateur."
+                )
+            else:
+                 QMessageBox.warning(
+                self, "Erreur",
+                "Le groupe sudo n'existe pas dans la branche Red Hat. Vous devez \n "
+                "soit ajouter le groupe wheel soit cocher la case administrateur."
+            )
+
             return
 
         if nom_groupe == "root":
@@ -172,7 +184,7 @@ class FenUser(QMainWindow):
         # Ajuste la fenêtre à la taille idéale calculée par les layouts du .ui
         self.adjustSize()
 
-        # self.setFixedSize(self.sizeHint())
+        self.setFixedSize(self.sizeHint())
 
         # Centrage de la fenêtre
         qr = self.frameGeometry()
