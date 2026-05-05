@@ -22,6 +22,7 @@ class FenUser(QMainWindow):
         cancelIcon = QIcon(":/icontux/multiply.png")
         adddIcon = QIcon(":/icontux/new_file.png")
         suppressIcon = QIcon(":/icontux/supprimer.png")
+        emptyIcon = QIcon(":/icontux/balayer.png")
         self.active_sudo = False
 
         self.config = config_shared
@@ -46,6 +47,7 @@ class FenUser(QMainWindow):
         self.ui.btn_annuler.setIcon(cancelIcon)
         self.ui.btn_supprimer.setIcon(suppressIcon)
         self.ui.btn_ajouter.setIcon(adddIcon)
+        self.ui.btn_vider.setIcon(emptyIcon)
 
         # Création des événements
         self.ui.cbx_desactiveRoot.toggled.connect(self.desactive_root)
