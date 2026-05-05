@@ -226,6 +226,21 @@
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>edt_rootPasswd</tabstop>
+  <tabstop>edt_identifiant</tabstop>
+  <tabstop>edt_etiquette</tabstop>
+  <tabstop>edt_UserPasswd</tabstop>
+  <tabstop>edt_SaisieGroupe</tabstop>
+  <tabstop>btn_ajouter</tabstop>
+  <tabstop>btn_supprimer</tabstop>
+  <tabstop>btn_vider</tabstop>
+  <tabstop>btn_ok</tabstop>
+  <tabstop>btn_annuler</tabstop>
+  <tabstop>cbx_desactiveRoot</tabstop>
+  <tabstop>cbx_administrateur</tabstop>
+  <tabstop>tedt_ListeGroupe</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

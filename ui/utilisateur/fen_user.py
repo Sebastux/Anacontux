@@ -6,7 +6,7 @@ import re
 import sys
 from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton, QStyle, QComboBox, QMessageBox
 
-from PySide6.QtGui import QIcon, QPixmap
+from PySide6.QtGui import QIcon, QPixmap, QTextCursor
 from . import rc_icones
 from .ui_loader import UiWindow
 
@@ -20,6 +20,8 @@ class FenUser(QMainWindow):
         # Déclaration de divers variables
         valideIcon = QIcon(":/icontux/valide.png")
         cancelIcon = QIcon(":/icontux/multiply.png")
+        adddIcon = QIcon(":/icontux/new_file.png")
+        suppressIcon = QIcon(":/icontux/supprimer.png")
         self.active_sudo = False
 
         self.config = config_shared
@@ -42,6 +44,8 @@ class FenUser(QMainWindow):
         # Affectation d'icones
         self.ui.btn_ok.setIcon(valideIcon)
         self.ui.btn_annuler.setIcon(cancelIcon)
+        self.ui.btn_supprimer.setIcon(suppressIcon)
+        self.ui.btn_ajouter.setIcon(adddIcon)
 
         # Création des événements
         self.ui.cbx_desactiveRoot.toggled.connect(self.desactive_root)
@@ -137,12 +141,18 @@ class FenUser(QMainWindow):
 
     def supprimer_groupe(self) -> None:
         """Supprime la ligne où se trouve le curseur dans le QTextEdit."""
+        # On récupère le curseur actuel du widget
         cursor = self.ui.tedt_ListeGroupe.textCursor()
-        if not cursor.hasSelection():
-            cursor.select(cursor.LineUnderCursor)
 
+        # On vérifie s'il n'y a pas déjà une sélection
+        if not cursor.hasSelection():
+            # ICI : On utilise la classe QTextCursor pour accéder à la constante
+            cursor.select(QTextCursor.LineUnderCursor)
+
+        # On supprime la sélection
         cursor.removeSelectedText()
-        # Nettoyage des lignes vides potentielles après suppression
+
+        # Nettoyage pour éviter les sauts de ligne orphelins
         texte = self.ui.tedt_ListeGroupe.toPlainText()
         nettoye = "\n".join([l for l in texte.splitlines() if l.strip()])
         self.ui.tedt_ListeGroupe.setPlainText(nettoye)
