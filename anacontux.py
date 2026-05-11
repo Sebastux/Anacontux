@@ -27,7 +27,6 @@ def main():
     fic_log = logging.getLogger(__name__)
     now_str = datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
 
-
 # Configuration du fichier de log
     nom_fichier = f"logtux_{now_str}.log"
     log_dir = os.path.join(os.path.dirname(__file__), "logs")
