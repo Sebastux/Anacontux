@@ -3,7 +3,6 @@
 
 import os
 import re
-import sys
 from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton, QStyle, QComboBox, QMessageBox
 
 from PySide6.QtGui import QIcon, QPixmap, QTextCursor
@@ -49,6 +48,9 @@ class FenUser(QMainWindow):
         self.ui.btn_ajouter.setIcon(adddIcon)
         self.ui.btn_vider.setIcon(emptyIcon)
 
+        # Désactivation du bouton OK
+        self.ui.btn_ok.setEnabled(False)
+
         # Création des événements
         self.ui.cbx_desactiveRoot.toggled.connect(self.desactive_root)
         self.ui.btn_annuler.clicked.connect(self.quitter)
@@ -58,6 +60,11 @@ class FenUser(QMainWindow):
         self.ui.btn_vider.clicked.connect(self.vider_liste_groupes)
         self.ui.btn_ok.clicked.connect(self.validation)
         self.ui.edt_identifiant.textChanged.connect(self.repliquer_identifiant)
+
+        self.ui.edt_rootPasswd.textChanged.connect(self.activation_btnOK)
+        self.ui.edt_identifiant.textChanged.connect(self.activation_btnOK)
+        self.ui.edt_etiquette.textChanged.connect(self.activation_btnOK)
+        self.ui.edt_UserPasswd.textChanged.connect(self.activation_btnOK)
 
     def desactive_root(self, is_checked) -> None:
         if is_checked:
@@ -201,19 +208,51 @@ class FenUser(QMainWindow):
         # On met à jour l'étiquette uniquement si elle est vide ou
         # si elle contient déjà une version précédente de l'identifiant.
         self.ui.edt_etiquette.setText(texte)
+        self.activation_btnOK()
 
     def validation(self) -> None:
         # Récupération des valeurs saisie
-        root_passwd = self.ui.edt_rootPasswd.strip()
+        root_passwd = self.ui.edt_rootPasswd.text().strip()
         login = self.ui.edt_identifiant.text().strip().lower()
         etiquette = self.ui.edt_etiquette.text().strip()
         user_password = self.ui.edt_UserPasswd.text().strip()
-        nom_groupe = self.ui.edt_SaisieGroupe.text().strip().lower()
+
+        # Récupération des groupes secondaire
+        Liste_groupe = self.ui.tedt_ListeGroupe.toPlainText()
+        groupes = ",".join([g.strip() for g in Liste_groupe.splitlines() if g.strip()])
+        if self.ui.cbx_administrateur.isChecked():
+            groupes = "wheel," + groupes
 
         # Export des valeurs dans la dataclass
         self.config.root_pw_crypted = root_passwd
         self.config.user_name = login
         self.config.user_gecos = etiquette
         self.config.user_pw_crypted = user_password
-        self.config.user_groups = nom_groupe
+        self.config.user_groups = groupes
         self.close()
+
+    def activation_btnOK(self) -> None:
+        # Vérification du remplissage des zones de saisie
+        root_passwd = self.ui.edt_rootPasswd.text().strip()
+        if len(root_passwd) == 0:
+            self.ui.btn_ok.setEnabled(False)
+            return
+
+        login = self.ui.edt_identifiant.text().strip()
+        if len(login) == 0:
+            self.ui.btn_ok.setEnabled(False)
+            return
+
+        etiquette = self.ui.edt_etiquette.text().strip()
+        if len(etiquette) == 0:
+            self.ui.btn_ok.setEnabled(False)
+            return
+
+        user_password = self.ui.edt_UserPasswd.text().strip()
+        if len(user_password) == 0:
+            self.ui.btn_ok.setEnabled(False)
+            return
+
+        # Si tout est bon alors on active le bouton
+        self.ui.btn_ok.setEnabled(True)
+
