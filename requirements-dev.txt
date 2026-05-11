@@ -5,7 +5,7 @@ black
 flake8
 isort
 mypy
-Nuitka
+"Nuitka[all]"
 PySide6
 Sphinx
 sphinx-rtd-theme
