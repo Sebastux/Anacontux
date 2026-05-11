@@ -56,6 +56,8 @@ class FenUser(QMainWindow):
         self.ui.btn_ajouter.clicked.connect(self.ajouter_groupe)
         self.ui.btn_supprimer.clicked.connect(self.supprimer_groupe)
         self.ui.btn_vider.clicked.connect(self.vider_liste_groupes)
+        self.ui.btn_ok.clicked.connect(self.validation)
+        self.ui.edt_identifiant.textChanged.connect(self.repliquer_identifiant)
 
     def desactive_root(self, is_checked) -> None:
         if is_checked:
@@ -193,3 +195,25 @@ class FenUser(QMainWindow):
         cp = self.screen().availableGeometry().center()
         qr.moveCenter(cp)
         self.move(qr.topLeft())
+
+    def repliquer_identifiant(self, texte: str) -> None:
+        """Recopie l'identifiant dans l'étiquette (GECOS)."""
+        # On met à jour l'étiquette uniquement si elle est vide ou
+        # si elle contient déjà une version précédente de l'identifiant.
+        self.ui.edt_etiquette.setText(texte)
+
+    def validation(self) -> None:
+        # Récupération des valeurs saisie
+        root_passwd = self.ui.edt_rootPasswd.strip()
+        login = self.ui.edt_identifiant.text().strip().lower()
+        etiquette = self.ui.edt_etiquette.text().strip()
+        user_password = self.ui.edt_UserPasswd.text().strip()
+        nom_groupe = self.ui.edt_SaisieGroupe.text().strip().lower()
+
+        # Export des valeurs dans la dataclass
+        self.config.root_pw_crypted = root_passwd
+        self.config.user_name = login
+        self.config.user_gecos = etiquette
+        self.config.user_pw_crypted = user_password
+        self.config.user_groups = nom_groupe
+        self.close()
