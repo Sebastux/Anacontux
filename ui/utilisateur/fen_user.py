@@ -3,6 +3,15 @@
 
 import os
 import re
+import platform
+
+try:
+    import crypt  # Natif Linux
+    HAS_CRYPT = True
+except ImportError:
+    from passlib.hash import sha512_crypt  # Solution de secours (Windows/Autres)
+    HAS_CRYPT = False
+
 from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton, QStyle, QComboBox, QMessageBox
 
 from PySide6.QtGui import QIcon, QPixmap, QTextCursor
@@ -212,10 +221,10 @@ class FenUser(QMainWindow):
 
     def validation(self) -> None:
         # Récupération des valeurs saisie
-        root_passwd = self.ui.edt_rootPasswd.text().strip()
+        root_raw = self.ui.edt_rootPasswd.text().strip()
+        user_raw = self.ui.edt_UserPasswd.text().strip()
         login = self.ui.edt_identifiant.text().strip().lower()
         etiquette = self.ui.edt_etiquette.text().strip()
-        user_password = self.ui.edt_UserPasswd.text().strip()
 
         # Récupération des groupes secondaire
         Liste_groupe = self.ui.tedt_ListeGroupe.toPlainText()
@@ -224,11 +233,25 @@ class FenUser(QMainWindow):
             groupes = "wheel," + groupes
 
         # Export des valeurs dans la dataclass
-        self.config.root_pw_crypted = root_passwd
+        def generer_hash(password: str) -> str:
+            if password == "!":
+                return "!"
+            if HAS_CRYPT:
+                # Utilise la lib C du système (Linux)
+                return crypt.crypt(password, crypt.mksalt(crypt.METHOD_SHA512))
+            else:
+                # Utilise l'implémentation Pure Python (Windows/CI)
+                return sha512_crypt.hash(password)
+
+        # 3. Application du hachage
+        self.config.root_pw_crypted = generer_hash(root_raw)
+        self.config.user_pw_crypted = generer_hash(user_raw)
+
         self.config.user_name = login
         self.config.user_gecos = etiquette
-        self.config.user_pw_crypted = user_password
         self.config.user_groups = groupes
+        print(self.config.root_pw_crypted)
+        print(self.config.user_pw_crypted)
         self.close()
 
     def activation_btnOK(self) -> None:
