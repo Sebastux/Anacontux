@@ -68,11 +68,30 @@ def main():
     # On lance la boucle d'événements et on stocke le code de retour
     exit_code = app.exec()
 
-    # Maintenant que la fenêtre est fermée, le print fonctionnera !
+    # MAJ duu fichier de log
     fic_log.debug(f"Configuration Distribution : {kick_fic.distribution}")
     fic_log.debug(f"Configuration Langue : {kick_fic.langue}")
     fic_log.debug(f"Configuration Clavier : {kick_fic.clavier}")
     fic_log.debug(f"Configuration Fuseau horaire : {kick_fic.timezone}")
+    if kick_fic.root_pw_crypted == "!":
+        fic_log.info("Le compte root est désactivé.")
+    else:
+        fic_log.info(f"Mot de passe Root : *****")
+    fic_log.info(f"Nom de l'utillisateur : {kick_fic.user_name}")
+    fic_log.info(f"Etiquette du compte : {kick_fic.user_gecos}")
+    fic_log.info(f"Mot de passe du compte {kick_fic.user_name} : ++++++++++++++++++++")
+    if kick_fic.user_groups[0:5] == "wheel":
+        fic_log.info("Droits sudo : OUI")
+        if len(kick_fic.user_groups[6:]) > 0:
+            fic_log.info(f"Liste des groupes secondaire : {kick_fic.user_groups[6:]}")
+        else:
+            fic_log.info("Pas de groupe secondaire.")
+    else:
+        fic_log.info("Droits sudo : NON")
+        if len(kick_fic.user_groups) > 0:
+            fic_log.info(f"Liste des groupes secondaire : {kick_fic.user_groups}")
+        else:
+            fic_log.info("Pas de groupe secondaire.")
 
     # On quitte proprement avec le code de retour
     fic_log.debug("Fermeture de l'application.")
