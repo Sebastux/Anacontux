@@ -77,7 +77,7 @@ class KickstartConfig:
         lines.append("")
 
         # Timezone & Users
-        lines.append(f"timezone {self.timezone} --utc")
+        lines.append(f"timezone {self.timezone}")
         lines.append(f"rootpw --iscrypted {self.root_pw_crypted}")
         lines.append(
             f"user --groups={self.user_groups} --name={self.user_name} --password={self.user_pw_crypted} --iscrypted --gecos=\"{self.user_gecos}\"")
