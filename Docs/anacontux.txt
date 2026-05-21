@@ -1,0 +1,12 @@
+hostname de la machine
+
+
+type de disque dur (HD, SSD, NVME)
+
+Point de montage (Perso, /, /home, /boot, /boot/UEFI …)
+
+Système de fichier : (btrfs, EFI, ext2, ext3, ext4, f2fs, ntfs, swap, vfat, xfs)
+
+taille chiffre en Mo ou en Go
+
+
