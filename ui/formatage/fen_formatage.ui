@@ -6,14 +6,155 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1125</width>
+    <height>827</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Formatage du disque dur</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="formLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>154</width>
+      <height>157</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QCheckBox" name="cbx_clear">
+       <property name="text">
+        <string>Effacer tout le disque</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="gbx_ChoixDisque">
+       <property name="title">
+        <string>Type de disque</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QRadioButton" name="rb_HardDrive">
+          <property name="text">
+           <string>Disque dur</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="rb_ssd">
+          <property name="text">
+           <string>SSD</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="rb_mvne">
+          <property name="text">
+           <string>MVNE</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="formLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>10</y>
+      <width>871</width>
+      <height>390</height>
+     </rect>
+    </property>
+    <layout class="QFormLayout" name="formLayout_2">
+     <item row="0" column="0">
+      <widget class="QLabel" name="lbl_PointDeMontage">
+       <property name="text">
+        <string>Points de montage :</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="lbl_MontagePerso">
+       <property name="text">
+        <string>Point de montage personnalisé : </string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QComboBox" name="cbx_PointDeMonatge">
+       <property name="toolTip">
+        <string>Utilliser un point de montage de la liste.</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>/</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>/boot</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>/boot/efi</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>/var</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>/var/log</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>/var/tmp</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>/opt</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>/home</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>autre</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QComboBox" name="comboBox_2"/>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="lineEdit"/>
+     </item>
+    </layout>
+   </widget>
+  </widget>
  </widget>
  <resources/>
  <connections/>
