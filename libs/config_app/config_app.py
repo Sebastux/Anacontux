@@ -85,5 +85,8 @@ class ConfigApp:
         Lit des valeurs booléennes. Si la valeur est absente ou incorrecte, la valeur par défaut est false.
         group_name est le nom de la section dans laquelle sera lu le couple clé / valeur
         """
-
+        self.config.beginGroup(group_name)
+        resultat = self.config.value(cle, defaultValue=valeur_defaut, type=bool)
+        self.config.endGroup()
+        return resultat
 
