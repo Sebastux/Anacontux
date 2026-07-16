@@ -13,7 +13,7 @@ class ConfigApp:
         self.entreprise = entreprise
         self.NomApp = NomApp
 
-        # récuparation du répertoire d'éxécution du programme ppal.
+        # Récuparation du répertoire d'éxécution du programme ppal.
         self.get_app_paths()
 
         chemin_fic = os.path.join(self.dir_path, "config_dev.ini")
@@ -24,7 +24,7 @@ class ConfigApp:
             self.config = QSettings(self.entreprise, self.NomApp)
 
 
-    def get_app_paths():
+    def get_app_paths(self):
         """
         Retourne le chemin absolu de l'exécutable/script
         et le dossier qui le contient.
@@ -42,10 +42,11 @@ class ConfigApp:
         self.file_path = current_path  # /chemin/vers/mon_app ou mon_app.py
         self.dir_path = current_path.parent  # /chemin/vers/ (le dossier contenant)
 
-    def SauvePosition(self, group_name: str, window: QWidget):
+    def SauvePosition(self, window: QWidget, group_name: str = "groupe_defaut"):
         """
         Sauvegarde la géométrie (et l'état si QMainWindow) de n'importe quelle fenêtre.
         group_name: Le nom de la section dans le fichier INI (ex: 'MainWindow', 'SettingsDialog')
+        Sa valeur par défaut est groupe_defaut.
         """
         self.config.beginGroup(group_name)
 
@@ -73,16 +74,17 @@ class ConfigApp:
 
         self.config.endGroup()
 
-    def SauveBool(self, group_name: str = "groupe_defaut", cle:str, valeur: bool = False):
+    def SauveBool(self, cle:str, valeur: bool = False, group_name: str = "groupe_defaut"):
         """
         Sauvegarde des valeurs booléennes. Si la valeur n'est pas fournie, la valeur par défaut est False.
-        group_name est le nom de la section dans laquelle sera sauvegardé le couple clé / valeur
+        group_name est le nom de la section dans laquelle sera sauvegardé le couple clé / valeur.
+        Sa valeur par défaut est groupe_defaut.
         """
         self.config.beginGroup(group_name)
         self.config.setValue(cle, valeur)
         self.config.endGroup()
 
-    def RecupereBool(self, group_name: str = "groupe_defaut", cle:str) -> bool:
+    def RecupereBool(self, group_name: str, cle:str) -> bool:
         """
         Lit des valeurs booléennes. Si la valeur est absente ou incorrecte, la valeur par défaut est false.
         group_name est le nom de la section dans laquelle sera lu le couple clé / valeur
@@ -97,7 +99,7 @@ class ConfigApp:
         Sauvegarde une chaine de caractéres. Si la valeur n'est pas fournie, la valeur par défaut est une
         chaine vide.
         group_name est le nom de la section dans laquelle sera sauvegardé le couple clé / valeur.
-        Sa valeur par défaut est groupe_defaut
+        Sa valeur par défaut est groupe_defaut.
         """
         self.config.beginGroup(group_name)
         self.config.setValue(cle, valeur)
