@@ -1,3 +1,5 @@
+import string
+
 from PySide6.QtCore import QSettings, QCoreApplication
 import os
 import sys
@@ -90,3 +92,24 @@ class ConfigApp:
         self.config.endGroup()
         return resultat
 
+    def SauveString(self, cle:str, valeur: str = "", group_name: str = "groupe_defaut"):
+        """
+        Sauvegarde une chaine de caractéres. Si la valeur n'est pas fournie, la valeur par défaut est une
+        chaine vide.
+        group_name est le nom de la section dans laquelle sera sauvegardé le couple clé / valeur.
+        Sa valeur par défaut est groupe_defaut
+        """
+        self.config.beginGroup(group_name)
+        self.config.setValue(cle, valeur)
+        self.config.endGroup()
+
+    def RecupereString(self, group_name: str, cle:str) -> str:
+        """
+        Lit des valeurs str. Si la valeur est absente ou incorrecte, la valeur par défaut est une
+        chaine vide.
+        group_name est le nom de la section dans laquelle sera lu le couple clé / valeur
+        """
+        self.config.beginGroup(group_name)
+        resultat = self.config.value(cle, defaultValue="", type=str)
+        self.config.endGroup()
+        return resultat
