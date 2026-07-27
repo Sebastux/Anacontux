@@ -9,5 +9,6 @@ mypy
 PySide6
 Sphinx
 sphinx-rtd-theme
+sphinx-autodoc-typehints
 jupyter
 jupyterlab-language-pack-fr-FR
