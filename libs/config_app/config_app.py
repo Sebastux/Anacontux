@@ -4,6 +4,8 @@ from PySide6.QtCore import QSettings, QCoreApplication
 import os
 import sys
 import builtins
+import unicodedata
+import re
 from pathlib import Path
 
 
@@ -83,7 +85,8 @@ class ConfigApp:
             group_name (str, optional): Nom du groupe/section dans la configuration.
                 Defaults to "groupe_defaut".
         """
-        self.config.beginGroup(group_name)
+        groupe = self._nettoyer_identifiant(group_name)
+        self.config.beginGroup(groupe)
 
         # Sauvegarde commune à tous les QWidget (taille, position)
         self.config.setValue("geometry", window.saveGeometry())
@@ -102,7 +105,8 @@ class ConfigApp:
             group_name (str, optional): Nom du groupe/section dans la configuration.
                 Defaults to "groupe_defaut".
         """
-        self.config.beginGroup(group_name)
+        groupe = self._nettoyer_identifiant(group_name)
+        self.config.beginGroup(groupe)
 
         geometry = self.config.value("geometry")
         if geometry:
@@ -126,7 +130,8 @@ class ConfigApp:
         Returns:
             bool: La valeur lue ou `valeur_defaut`.
         """
-        self.config.beginGroup(group_name)
+        groupe = self._nettoyer_identifiant(group_name)
+        self.config.beginGroup(groupe)
         self.config.setValue(cle, valeur)
         self.config.endGroup()
 
@@ -141,7 +146,8 @@ class ConfigApp:
         Returns:
             bool: La valeur lue ou `valeur_defaut`.
         """
-        self.config.beginGroup(group_name)
+        groupe = self._nettoyer_identifiant(group_name)
+        self.config.beginGroup(groupe)
         resultat = self.config.value(cle, defaultValue=False, type=bool)
         self.config.endGroup()
         return resultat
@@ -153,7 +159,9 @@ class ConfigApp:
         group_name est le nom de la section dans laquelle sera sauvegardé le couple clé / valeur.
         Sa valeur par défaut est groupe_defaut.
         """
-        self.config.beginGroup(group_name)
+        groupe = self._nettoyer_identifiant(group_name)
+        self.config.beginGroup(groupe)
+
         self.config.setValue(cle, valeur)
         self.config.endGroup()
 
@@ -168,7 +176,9 @@ class ConfigApp:
         Returns:
             str: La chaîne lue ou `valeur_defaut`.
         """
-        self.config.beginGroup(group_name)
+        groupe = self._nettoyer_identifiant(group_name)
+        self.config.beginGroup(groupe)
+
         resultat = self.config.value(cle, defaultValue="", type=str)
         self.config.endGroup()
         return resultat
@@ -181,7 +191,9 @@ class ConfigApp:
             valeur (int, optional): L'entier à enregistrer. Defaults to 0.
             group_name (str, optional): La section cible. Defaults to "groupe_defaut".
         """
-        self.config.beginGroup(group_name)
+        groupe = self._nettoyer_identifiant(group_name)
+        self.config.beginGroup(groupe)
+
         self.config.setValue(cle, valeur)
         self.config.endGroup()
 
@@ -196,7 +208,9 @@ class ConfigApp:
         Returns:
             int: L'entier lu ou `valeur_defaut`.
         """
-        self.config.beginGroup(group_name)
+        groupe = self._nettoyer_identifiant(group_name)
+        self.config.beginGroup(groupe)
+
         resultat = self.config.value(cle, defaultValue=0, type=int)
         self.config.endGroup()
         return resultat
@@ -209,7 +223,9 @@ class ConfigApp:
             valeur (float, optional): Le réel à enregistrer. Defaults to 0.0.
             group_name (str, optional): La section cible. Defaults to "groupe_defaut".
         """
-        self.config.beginGroup(group_name)
+        groupe = self._nettoyer_identifiant(group_name)
+        self.config.beginGroup(groupe)
+
         self.config.setValue(cle, valeur)
         self.config.endGroup()
 
@@ -224,7 +240,23 @@ class ConfigApp:
         Returns:
             float: Le réel lu ou `valeur_defaut`.
         """
-        self.config.beginGroup(group_name)
+        groupe = self._nettoyer_identifiant(group_name)
+        self.config.beginGroup(groupe)
+
         resultat = self.config.value(cle, defaultValue=0, type=float)
         self.config.endGroup()
         return resultat
+
+    def _nettoyer_identifiant(self, texte: str) -> str:
+        """
+        Supprime les accents et sécurise une chaîne pour l'utiliser comme clé ou groupe.
+        Exemple : 'Securité & Option' -> 'Securite_Option'
+        """
+        # 1. Décompose les caractères accentués (ex: 'é' devient 'e' + accent)
+        texte_nfd = unicodedata.normalize('NFD', texte)
+        # 2. Ne garde que les caractères ASCII de base (supprime les accents détachés)
+        texte_ascii = texte_nfd.encode('ascii', 'ignore').decode('utf-8')
+        # 3. Remplace les espaces et caractères spéciaux par des underscores
+        texte_propre = re.sub(r'[^a-zA-Z0-9_]', '_', texte_ascii)
+
+        return texte_propre
